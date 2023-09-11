@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        th {
+            border: 1px solid black;
+            padding: 5px 10px 5px 5px;
+        }
+
+        table {
+            border: 1px solid black;
+        }
+
+        * {
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        input {
+            border: 1px solid rgb(189, 179, 179);
+        }
+    </style>
+</head>
+
+<body>
+    <form action="index.php" method="post">
+        <table>
+            <tr>
+                <th></th>
+                <th>Số bắt đầu</th>
+                <th><input type="text" name="soBatDau"></th>
+                <th>Số kết thúc</th>
+                <th><input type="text" name="soKetThuc"></th>
+            </tr>
+
+            <tr>
+                <th colspan="5">Kết quả</th>
+            </tr>
+            <tr>
+                <th>Tổng các số</th>
+                <th colspan="4"><input type="text" ></th>
+            </tr>
+            <tr>
+                <th>Tích các số</th>
+                <th colspan="4"><input type="text"></th>
+            </tr>
+            <tr>
+                <th>Tổng các số chẵn</th>
+                <th colspan="4"><input type="text"></th>
+            </tr>
+            <tr>
+                <th>Tổng các số lẻ</th>
+                <th colspan="4"><input type="text"></th>
+            </tr>
+            <tr>
+                <th colspan="5"><input type="submit" value="Tính toán"></th>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

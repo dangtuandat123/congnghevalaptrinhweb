@@ -1,0 +1,126 @@
+<script>
+    function themInput2(i) {
+        inputCounter++;
+        // Tạo một div container cho input và nút xóa
+        const container = document.createElement("div");
+        container.classList.add("input-container");
+        container.style.display = "grid";
+        container.style.gridAutoColumns = "1fr";
+        container.style.gridAutoRows = "1fr";
+        container.style.gridTemplateColumns = "284.8px 110px";
+        container.style.gridTemplateRows = "auto auto";
+        container.style.gap = "0px 0px";
+        container.style.gridTemplateAreas = `
+                                         ". ."
+                                         ". ."
+                                            `;
+
+
+        // Tạo input
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.className = "input_upload";
+        input.name = "anh" + inputCounter; // Sửa đổi trường "name" để cộng dần
+        input.required = true; // Thêm trường required
+
+        // Tạo nút xóa
+        const btnXoa = document.createElement("button");
+        btnXoa.textContent = "Xóa ảnh";
+        btnXoa.style.margin = "10px";
+        btnXoa.style.padding = "0px 10px";
+
+        btnXoa.addEventListener("click", function() {
+            container.remove(); // Xóa container khi nút xóa được nhấp
+            capNhatTenInput2();
+            capNhatHinhAnhPreview2();
+        });
+
+        // Tạo phần hiển thị ảnh preview
+        const imagePreview = document.createElement("img");
+        imagePreview.className = "image-preview";
+        imagePreview.style.maxWidth = "100px";
+        imagePreview.style.maxHeight = "100px";
+        imagePreview.style.marginBottom = "10px";
+
+
+        // Thêm input, nút xóa, và ảnh preview vào container
+        container.appendChild(input);
+        container.appendChild(btnXoa);
+        container.appendChild(imagePreview);
+
+        // Thêm container vào div chứa các input
+        document.getElementById("inputContainer").appendChild(container);
+
+        // Thêm sự kiện change cho input để hiển thị ảnh preview
+        input.addEventListener("change", function(event) {
+            hienThiAnhPreview2(event, imagePreview);
+        });
+
+        capNhatTenInput2();
+        capNhatHinhAnhPreview2();
+    }
+
+    function capNhatTenInput2() {
+        const containers = document.querySelectorAll(".input-container");
+        const soanhInput = document.getElementById("soanh");
+        const h4_hinhanhsanpham = document.getElementById("h4_hinhanhsanpham");
+
+        h4_hinhanhsanpham.textContent = "Hình ảnh sản phẩm: " + containers.length;
+        soanhInput.value = containers.length;
+
+        containers.forEach(function(container, index) {
+            const input = container.querySelector("input");
+            input.name = "anh" + (index + 1);
+        });
+    }
+
+    function hienThiAnhPreview2(event, imagePreview) {
+        const input = event.target;
+        const file = input.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            // Clear image preview if no file is selected
+            imagePreview.src = "";
+        }
+    }
+
+    function capNhatHinhAnhPreview2() {
+        const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+        imagePreviewContainer.innerHTML = ""; // Clear the existing previews
+
+        const containers = document.querySelectorAll(".input-container");
+
+        containers.forEach(function(container, index) {
+            const input = container.querySelector("input");
+            const file = input.files[0];
+
+            if (file) {
+                const imagePreview = document.createElement("img");
+                imagePreview.className = "image-preview";
+                imagePreview.style.maxWidth = "100px";
+                imagePreview.style.maxHeight = "100px";
+
+                const imagePreviewContainerItem = document.createElement("div");
+                imagePreviewContainerItem.className = "image-preview-container";
+                imagePreviewContainerItem.appendChild(imagePreview);
+
+                imagePreviewContainer.appendChild(imagePreviewContainerItem);
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+</script>
